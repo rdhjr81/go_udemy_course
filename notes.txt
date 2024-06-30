@@ -1,0 +1,30 @@
+---------------------------------------------------------------------------------
+Grouping Data Values - Array And Slice
++++++++++++++++++++++
+arrays - mostly used for go internals, doesnt change in size
+slice - holds values of the same types
+    built on top of array, can change size
+    has length & capacity
+map - key/value 
+    unordered group of vals of 1 type and keys of another type
+struct- 
+    data structure
+    composite type 
+    can collect values of diff types
+---------------------------------------------------------------------------------
+arrays
+    a1 := [2]int{1, 2}
+	fmt.Println(a1)
+
+	a2 := [...]string{"hi", "my", "name", "is", "rob"}
+	fmt.Println(a2)
+
+	var a3 [2]int
+	a3[0] = 1
+	a3[1] = 42
+
+    len()
+        len(a1)
+---------------------------------------------------------------------------------
++++++++++++++++++++++
+---------------------------------------------------------------------------------
