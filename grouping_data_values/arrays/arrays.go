@@ -1,8 +1,8 @@
-package main
+package arrays
 
 import "fmt"
 
-func main() {
+func FunWithArrays() {
 	// array literal
 	a1 := [2]int{1, 2}
 	fmt.Println(a1)

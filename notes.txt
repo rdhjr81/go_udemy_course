@@ -24,7 +24,36 @@ arrays
 	a3[1] = 42
 
     len()
-        len(a1)
+        len(a1) 
 ---------------------------------------------------------------------------------
+slice
+    just like array but no specified length
+    
+    slice literal ex:
+        s := []int {1,2}
+
+    for index, flavor := range iceCreamFlavors {
+		fmt.Println("flavor number: ", index, "flavor name: ", flavor)
+	}
++++++++++++++++++++++
+    access by index 
+    s[0]
+    s[1]
++++++++++++++++++++++
+    appending
+    s = append(s, 3,4,5)
++++++++++++++++++++++
+    slicing a slice
+        cutting parts of the slice away 
+        	//inclusive:exclusive
+            fmt.Println("si[0:1]", si[0:1])
+            fmt.Println("si[1:4]", si[1:4])
+            //exclusive
+            fmt.Println("si[:4]", si[:4])
+
+            //inclusive
+            fmt.Println("si[5:]", si[5:])
++++++++++++++++++++++
++++++++++++++++++++++
 +++++++++++++++++++++
 ---------------------------------------------------------------------------------
