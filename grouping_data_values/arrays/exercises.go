@@ -63,3 +63,36 @@ func Ex46() {
 	x = append(x[:3], x[6:]...)
 	fmt.Println(x)
 }
+
+func Ex47() {
+	var states = make([]string, 50) //initializes a slice with len 50 and all values are 0
+	states = append(states, ` Alabama`, ` Alaska`, ` Arizona`, ` Arkansas`, ` California`, ` Colorado`, ` Connecticut`, ` Delaware`, ` Florida`, ` Georgia`, ` Hawaii`, ` Idaho`, ` Illinois`, ` Indiana`, ` Iowa`, ` Kansas`, ` Kentucky`, ` Louisiana`, ` Maine`, ` Maryland`, ` Massachusetts`, ` Michigan`, ` Minnesota`, ` Mississippi`, ` Missouri`, ` Montana`, ` Nebraska`, ` Nevada`, ` New Hampshire`, ` New Jersey`, ` New Mexico`, ` New York`, ` North Carolina`, ` North Dakota`, ` Ohio`, ` Oklahoma`, ` Oregon`, ` Pennsylvania`, ` Rhode Island`, ` South Carolina`, ` South Dakota`, ` Tennessee`, ` Texas`, ` Utah`, ` Vermont`, ` Virginia`, ` Washington`, ` West Virginia`, ` Wisconsin`, ` Wyoming`)
+	states = append(states[:0], states[50:]...)
+
+	//above works but its extra steps
+
+	fmt.Println("lenght of states:", len(states), "capacity of states:", cap(states))
+	for i := 0; i < len(states); i++ {
+		fmt.Println(i, states[i])
+	}
+
+	//correct way
+	var statesEmpty = make([]string, 0, 50) //initializes a slice with len 50 and w/ no values
+	statesEmpty = append(statesEmpty, ` Alabama`, ` Alaska`, ` Arizona`, ` Arkansas`, ` California`, ` Colorado`, ` Connecticut`, ` Delaware`, ` Florida`, ` Georgia`, ` Hawaii`, ` Idaho`, ` Illinois`, ` Indiana`, ` Iowa`, ` Kansas`, ` Kentucky`, ` Louisiana`, ` Maine`, ` Maryland`, ` Massachusetts`, ` Michigan`, ` Minnesota`, ` Mississippi`, ` Missouri`, ` Montana`, ` Nebraska`, ` Nevada`, ` New Hampshire`, ` New Jersey`, ` New Mexico`, ` New York`, ` North Carolina`, ` North Dakota`, ` Ohio`, ` Oklahoma`, ` Oregon`, ` Pennsylvania`, ` Rhode Island`, ` South Carolina`, ` South Dakota`, ` Tennessee`, ` Texas`, ` Utah`, ` Vermont`, ` Virginia`, ` Washington`, ` West Virginia`, ` Wisconsin`, ` Wyoming`)
+	fmt.Println("lenght of statesEmpty:", len(statesEmpty), "capacity of statesEmpty:", cap(statesEmpty))
+	for i := 0; i < len(statesEmpty); i++ {
+		fmt.Println(i, statesEmpty[i])
+	}
+}
+
+func Ex48() {
+	sliceOfSlice := [][]string{
+		{"James", "Bond", "Shaken, not stirred"},
+		{"Miss", "Moneypenny", "I'm 008."}}
+	for i, s := range sliceOfSlice {
+		fmt.Println("slice", s)
+		for j, v := range s {
+			fmt.Println(i, j, v)
+		}
+	}
+}

@@ -11,6 +11,8 @@ func main() {
 	// arrays.MultiDimensionalSlice()
 	// arrays.Ex42()
 	// arrays.Ex43()
-	arrays.Ex46()
+	// arrays.Ex46()
+	// arrays.Ex47()
+	arrays.Ex48()
 
 }

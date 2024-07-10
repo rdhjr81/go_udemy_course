@@ -1034,6 +1034,11 @@ slice
             fmt.Println(si2)
             fmt.Println(len(si2)) 
             fmt.Println(cap(si2))
+
+	can use 2 or 3 args 
+		var statesEmpty = make([]string, 0, 2) -> [] //no elems in slice 
+		vs
+		var states = make([]string, 2) -> [0,0] //2 elems in slice w/ default value 
 +++++++++++++++++++++
 +++++++++++++++++++++
     multi-dimensional slice
