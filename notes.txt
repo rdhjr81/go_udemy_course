@@ -1,3 +1,963 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Getting Going with Go 
+-----------------------------------------------------
+every go prog needs a:	
+	package main 
+	func main()
+
+	ex:
+		package main
+
+		// hello im a comment
+		/*
+
+		*/
+		import (
+			"fmt"
+		)
+
+		func main() {
+			fmt.Println("Hello, gophers 😒😘😎🥵🤬")
+		}
+-----------------------------------------------------
+format printing 
+	func main() {
+		const name, age, months = "Joe", 22, 11
+		fmt.Printf("%s is %d years and %d months old.\n", name, age, months )
+
+		// It is conventional not to worry about any
+		// error returned by Printf.
+
+	}
+	
+		const name, age, months = "Joe", 22, 11
+	fmt.Printf("%s is %d years and %d months old.\n", name, age, months )
+	fmt.Printf("The types are %T and %T.\n", name, age)
+	>>>Joe is 22 years and 11 months old.
+	The types are string and int.
+	
+	utf-8
+	<= 4 bytes 
+	if a char needs 1 byte thats all it will use 
+	if its needs 4 it will use 4
+	variable length encoding
+raw string literal 
+	fmt.Println(`hello 
+		friends
+		im a many 
+		lined string`)
+-----------------------------------------------------
+hands on ex #1
+	#1
+	package main 
+	import "fmt"
+	func main(){
+		fmt.Println("Hello cool dudes 😎")
+		fmt.Println(`I'm 
+	a ``````````````````````````````````````
+	raw
+	string
+	literal
+		`)
+	}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+The Fundamentals Of Go
+-----------------------------------------------------
+vars, zero vals & blank identifier 
+	var h int = 42
+	
+	short declaration (:=)
+		a:= 2
+	mult assignments 
+		b,c,d,_,f := 1, 2,3,4, "test"
+		
+	vars declared & not used -> error 
+		.\main.go:8:13: g declared and not used
+		
+	generally use short declaration 
+	var for specificity
+	
+	declare empty var 
+		var g int -> uses zero value (0)
+		int 0 
+		float 0.0 
+		string ""
+		bool F
+		pointers nil
+-----------------------------------------------------
+Printf for decimal & hex vals 
+	fmt.Printf("binary value %b", testval)
+
+	fmt.Printf("\nhex value %x", testval)
+	
+	a,b,c,d,e,f := 0,1,2,3,4,5
+
+
+	fmt.Printf("\n %v \t %b \t %#X",a,a,a)
+	fmt.Printf("\n %v \t %b \t %#X",b,b,b)
+	
+	binary value 101010
+	hex value 2a
+	 0       0       0X0
+	 1       1       0X1
+-----------------------------------------------------
+conversion 
+	say you have a float64 
+		z := 42.0
+		
+		42 of type float64
+	
+	declare a float32 var and try to assign it to the float64
+		var m float32 = 42.123
+
+		fmt.Printf("%v of type %T \n", m, m)
+
+		z = m
+	
+		!!!cannot use m (variable of type float32) as float64 value in assignment
+		cant assign it 
+		
+	conversion 
+		want to conv a var from f32 to f64
+		//conversion from float64 to float32
+		n64 := 42.123
+		fmt.Printf("%v of type %T \n", n64, n64)
+
+		var n64to32 = float32(n64)
+		fmt.Printf("%v of type %T \n", n64to32, n64to32)
+
+		//conversion from float32 to float64
+		var n32 float32 = 42.2442
+		fmt.Printf("%v of type %T \n", n32, n32)
+
+		var n32to64  = float64(n32)
+		fmt.Printf("%v of type %T \n", n32to64, n32to64)
+		
+	NOTE: short declaration can only be used inside functions 
+-----------------------------------------------------
+Built In Types, Aggregate Types an Composition 
+	basic -> built in 
+		go has pkg called builtin (of all the builtin types)
+	
+	composite/compund/structure/struct
+		types -> constructed from basic types 
+
+	aggregate type 
+		aggregates many values together 
+			array, slice, struct 
+			
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Hands on 
+-----------------------------------------------------
+Exported Names 
+	In Go, a name is exported if it begins with a capital letter. For example, Pizza is an exported name, as is Pi, which is exported from the math package.
+	pizza and pi do not start with a capital letter, so they are not exported.
+	When importing a package, you can refer only to its exported names. Any "unexported" names are not accessible from outside the package. 
+	
+importing 
+ can do either 
+	import (
+		"fmt"
+		"math"
+	)
+	or 
+	import "fmt"
+	import "math"
+	
+functions 
+		func add(x int, y int) int {
+			return x + y
+		}
+		
+		type comes AFTER the var name 
+		func add(x int, y int) int {
+			return x + y
+		}
+
+			func subtract (x int, y int) int {
+				return x - y
+			}
+
+			func main() {
+				fmt.Println(add(42, 13))
+				fmt.Println(subtract(4,2))
+			}
+
+	when 2 or more consec named func params share a type, can omit the type from all but last 
+		func subtract (x, y int){
+		
+	func can ret any number of results 
+		func swap (a, b string) (string, string){
+			return (b,a)
+		}
+		
+		a,b := swap("u", "f")
+		
+		
+	named returns 
+		Go's return values may be named. If so, they are treated as variables defined at the top of the function.
+		A return statement without arguments returns the named return values. This is known as a "naked" return.
+		
+		func spilt(sum int) (x,y int){
+			x = sum * 3/8
+			y = sum - x
+			return 
+		}
+		
+		fmt.Println(spilt(17)) -> 6 11 
+
+variables 
+	The var statement declares a list of variables; as in function argument lists, the type is last.
+	A var statement can be at package or function level. We see both in this example.
+	
+		var c, python, java bool
+
+		func main() {
+			var i int
+			fmt.Println(i, c, python, java)
+		}
+		
+	var declaration can incl initializers (1 per var)
+	if init is presetn type can be omitted 
+			var c, python, java = true, false, "no!"
+			var x, y, z = 1, 2, 3
+	
+			fmt.Println(i, j, c, python, java, l)
+			fmt.Println(x, y, z)
+			
+	short var decl 
+		var i, j int = 1, 2
+		k := 3
+		c, python, java := true, false, "no!"
+		
+		cant do := outside of a func, only var, const 
+-----------------------------------------------------		
+basic types 	
+-----------------------------------------------------
+	bool
+
+	string
+
+	int  int8  int16  int32  int64
+	uint uint8 uint16 uint32 uint64 uintptr
+
+	byte // alias for uint8
+
+	rune // alias for int32
+		 // represents a Unicode code point
+
+	float32 float64
+
+	complex64 complex128
+-----------------------------------------------------	
+	'int' is 32 bits on 32 bit systems and 64 on 64 bit sys 
+	-> use int unless you have a specific reason 
+	
+	var decls can be factored into blocks 
+		var (
+			ToBe   bool       = false
+			MaxInt uint64     = 1<<64 - 1
+			z      complex128 = cmplx.Sqrt(-5 + 12i)
+			runeVal rune = 32
+		)
+
+		func main() {
+			fmt.Printf("Type: %T Value: %v\n", ToBe, ToBe)
+			fmt.Printf("Type: %T Value: %v\n", MaxInt, MaxInt)
+			fmt.Printf("Type: %T Value: %v\n", z, z)
+			fmt.Printf("Type: %T Value: %v\n", runeVal, runeVal)
+		}
+		
+		Type: bool Value: false
+		Type: uint64 Value: 18446744073709551615
+		Type: complex128 Value: (2+3i)
+		Type: int32 Value: 32
+-----------------------------------------------------
+zero values 
+	vars declared w/o init val are given 'zero' val 
+	The zero value is:
+
+		0 for numeric types,
+		false for the boolean type, and
+		"" (the empty string) for strings.
+-----------------------------------------------------
+type conversion 
+	T(v)
+	converts v to type T 
+		i := 42
+		f := float64(i)
+		u := uint(f)
+-----------------------------------------------------
+type inference 
+	when using := 
+	type is inferred 
+	if numeric, precision determines type 
+		i := 42           // int
+		f := 3.142        // float64
+		g := 0.867 + 0.5i // complex128
+		
+constants 
+	decl liek vars but with const 
+	cant use short init 
+	can be char, string bool or numeric vals 
+		
+		const World = "世界"
+		const Truth = true
+		
+	numeric const are high precision vals 
+		const (
+			// Create a huge number by shifting a 1 bit left 100 places.
+			// In other words, the binary number that is 1 followed by 100 zeroes.
+			Big = 1 << 100
+			// Shift it right again 99 places, so we end up with 1<<1, or 2.
+			Small = Big >> 99
+		)
+		
+		func needInt(x int) int { return x*10 + 1 }
+		func needFloat(x float64) float64 {
+			return x * 0.1
+		}
+
+		func main() {
+			fmt.Println(needInt(Small))
+			fmt.Println(needFloat(Small))
+			fmt.Println(needFloat(Big))
+			fmt.Println(needInt(Big))
+		}
+		
+		./prog.go:22:22: cannot use Big (untyped int constant 1267650600228229401496703205376) as int value in argument to needInt (overflows)
+-----------------------------------------------------
+Bit Shifting 
+	fmt.Printf("%v %b\n",1<<1 ,1<<1 )
+	fmt.Printf("%v %b\n",1<<2 ,1<<2 )
+	fmt.Printf("%v %b\n",1<<3 ,1<<3 )
+	
+iota 
+	sort of like an enum 
+	
+	const(
+		_ = iota //starts at 0, _ will be discarded 
+		a
+		b
+		c
+		d
+		e
+		f
+		g
+	)
+	func main() {
+		fmt.Printf("%d \t %b\n", 1, 1)
+		fmt.Printf("%d \t %b\n", 1<<1, 1<<1)
+		fmt.Printf("%d \t %b\n", 1<<2, 1<<2)
+		fmt.Printf("%d \t %b\n", 1<<3, 1<<3)
+		fmt.Printf("%d \t %b\n", 1<<4, 1<<4)
+		fmt.Printf("%d \t %b\n", 1<<5, 1<<5)
+		fmt.Printf("%d \t %b\n", 1<<6, 1<<6)
+		
+		fmt.Printf("%d \t %b\n", 1, 1)
+		fmt.Printf("%d \t %b\n", 1<<a, 1<<a)
+		fmt.Printf("%d \t %b\n", 1<<b, 1<<b)
+		fmt.Printf("%d \t %b\n", 1<<c, 1<<c)
+		fmt.Printf("%d \t %b\n", 1<<d, 1<<d)
+		fmt.Printf("%d \t %b\n", 1<<e, 1<<e)
+		fmt.Printf("%d \t %b\n", 1<<f, 1<<f)
+	}
+	
+create a program that uses iota to calculate the size of each measurement of bytes
+○ KB 1024 bytes
+○ MB 1024 KB
+Todd McLeod - Learn To Code Go - Page 21
+○ GB 1024 MB
+○ TB 1024 GB
+○ PB 1024 TB
+○ EB 1024 EB
+● show the sizes of each in DECIMAL and BINARY using fmt.Printf
+● hint: use int and not float64 as shown in effective go (we aren't going up to the larger values of ZB
+and YB so we don't need to capacity of float64)
+
+	package main
+
+	import (
+		"fmt"
+	)
+
+	type ByteSize int
+
+	const(
+		_ ByteSize = iota 
+		KB = 1<<(10 * iota) 
+		MB 
+		GB
+		TB
+		PB
+		EB
+	)
+	func main() {
+		fmt.Printf("%v value in decimal %d and binary %b\n", KB, KB, KB)
+		fmt.Printf("%v value in decimal %d and binary %b\n", MB, MB, MB)
+		fmt.Printf("%v value in decimal %d and binary %b\n", GB, GB, GB)
+		fmt.Printf("%v value in decimal %d and binary %b\n", TB, TB, TB)
+		fmt.Printf("%v value in decimal %d and binary %b\n", PB, PB, PB)
+		fmt.Printf("%v value in decimal %d and binary %b\n", EB, EB, EB)
+	}
+
+-----------------------------------------------------
+write a program that uses the following:
+● for a VARIABLE storing a VALUE of TYPE
+○ string
+○ int
+○ float64
+● use print verbs to show
+○ value
+○ type
+
+	stringType, intType, floatType := "im a string", 42, 42.42
+	
+	fmt.Printf("var is type %T with value %v\n", stringType , stringType)
+	fmt.Printf("var is type %T with value %v\n", intType , intType )
+	fmt.Printf("var is type %T with value %v\n", floatType , floatType )
+-----------------------------------------------------
+write a program that uses print verbs to show the following numbers
+● 747
+● 911
+● 90210
+as
+● decimal
+● binary
+● hexadecimal
+
+	a, b, c := 747, 911, 90210
+	fmt.Printf("value %v in decimal, binary %b and hexadecimal %x\n", a, a, a)
+	fmt.Printf("value %v in decimal, binary %b and hexadecimal %x\n", b, b, b)
+	fmt.Printf("value %v in decimal, binary %b and hexadecimal %x\n", c, c, c)
+-----------------------------------------------------
+write a program that declares two variables
+● one variable to store a VALUE of TYPE int8
+○ assign to it the largest number possible, then print it
+● one variable to store a VALUE of TYPE uint8
+○ assign to it the largest number possible, then print it
+-----------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Fundamentals
+-----------------------------------------------------
+reserved 
+https://go.dev/ref/spec#Keywords
+-----------------------------------------------------
+understanding scope 
+	// the imported package "fmt"
+	// is in the "file block" scope
+	// of this file
+	import "fmt"
+
+	// x is in "package block" scope
+	var x = 42
+
+	func main() {
+		// x can be accessed here
+		fmt.Println(x)
+
+		// x can be accessed here
+		printMe()
+
+		// y does not exist here yet
+		// so this won't work
+		// fmt.Println(y)
+
+		// y is in "block scope"
+		y := 43
+		
+		// variable "shadowing" overshadows x declared at package level 
+		x := 32
+		fmt.Println(x)
+
+	func printMe() {
+		//x can be accessed here
+		fmt.Println(x)
+	}
+
+	// type person is in "package block" scope
+	type person struct {
+		first string
+	}
+
+	// the method sayHello
+	// which is attached to VALUES of TYPE person
+	// is in "package block" scope
+	func (p person) sayHello() {
+		fmt.Println("Hi, my name is", p.first) //p is a receiver variable 
+		
+	//he used the term 'receiver'
+-----------------------------------------------------
+comma ok idiom
+maps are dict from C# 
+
+	syntax var timeZone = map[string]int{
+		"UTC":  0*60*60,
+		"EST": -5*60*60,
+		"CST": -6*60*60,
+		"MST": -7*60*60,
+		"PST": -8*60*60,
+	}
+
+	assigning & fetching values 
+	offset = timeZone["EST"]
+
+when trying to fetch a val from a map & the key doesnt exist 
+the map will ret the zero val for that type 
+
+how to distinguish bw zero val & a missing entry? 
+-> comma, ok 
+
+	var seconds int 
+	var ok bool
+	seconds, ok = timeZone[tz]
+	
+ex: func 
+func offset(tz string) int {
+	if seconds, ok := tiemZone["tz"]{
+		return seconds 
+	}
+	log.Println("unknown time zone", tz)
+	return 0
+	
+to test for presence w/o worrying abt the actual value -> use the blank idnetifier _
+
+_, present = tiemZone["tz"]
+
+delete an entry 
+	delete(tiemZone, "PDT")
+
+}
+-----------------------------------------------------
+env
+go env 
+
+-----------------------------------------------------
+Getting up & running 
+go build 
+	builds .exe
+go run 
+
+
+-----------------------------------------------------
+how to initialize a git module 
+	go mod init 
+	
+
+found this in my VSCode go settings 
+  "go.gopath": "/Users/TMichels/code/go",
+  maybe that was causing the issue?
+  yup that was it
+-----------------------------------------------------
+cross build cross compile 
+	go env GOARCH GOOS
+		amd64
+		windows
+	
+	GOOS	go OS 
+	
+	run one of these at the command line to build to a certain OS:
+		■ GOOS=darwin go build
+		■ GOOS=linux go build
+		■ GOOS=windows go build	
+
+go install puts binary in $GOPATH/bin 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Go mod and dependency mgmt 
+
+in go we create modules.
+	modules have packages 
+	https://www.digitalocean.com/community/tutorials/how-to-use-go-modules
+	 Go modules commonly consist of one project or library and contain a collection of Go packages that are then released together
+	 
+	At first glance, a Go module looks similar to a Go package. 
+	A module has a number of Go code files implementing the functionality of a package, but it also has two additional and important files in the root: 
+	the go.mod file 
+	and 
+	the go.sum file. 
+	
+	When you run commands with the go tool, the go.mod file is a very important part of the process. 
+	It’s the file that contains the name of the module and versions of other modules your own module depends on
+	
+	old way was using GO PATH 
+	now we create workspces by using go mod init 
+	
+	https://go.dev/ref/mod#glos-direct-dependency
+-----------------------------------------------------
+	creating a module 
+		go mod init mymodule 
+	creates a go.mod file 
+	then run 
+		go mod tidy 
+		
+	result: 
+		module mymodule
+
+		go 1.22.1
+
+		require (
+			github.com/GoesToEleven/puppy v1.3.0
+			golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8
+			golang.org/x/sync v0.6.0
+			golang.org/x/tools v0.19.0
+		)
+
+		require (
+			github.com/GoesToEleven/dog v0.0.0-20230428023317-90bef1c76cb9 // indirect
+			golang.org/x/mod v0.16.0 // indirect
+		)
+
+	PS C:\learning\go\course_source\learn-to-code-go-version-03> go help mod    
+		Go mod provides access to operations on modules.
+
+		Note that support for modules is built into all the go commands,
+		not just 'go mod'. For example, day-to-day adding, removing, upgrading,
+		and downgrading of dependencies should be done using 'go get'.
+		See 'go help modules' for an overview of module functionality.
+
+		Usage:
+
+				go mod <command> [arguments]
+
+		The commands are:
+
+				download    download modules to local cache
+				edit        edit go.mod from tools or scripts
+				graph       print module requirement graph
+				init        initialize new module in current directory
+				tidy        add missing and remove unused modules
+				vendor      make vendored copy of dependencies
+				verify      verify dependencies have expected content
+				why         explain why packages or modules are needed
+
+	S C:\learning\go\course_source\learn-to-code-go-version-03> go help mod tidy
+		usage: go mod tidy [-e] [-v] [-x] [-go=version] [-compat=version]
+
+		Tidy makes sure go.mod matches the source code in the module.
+		It adds any missing modules necessary to build the current module's
+		packages and dependencies, and it removes unused modules that
+		don't provide any relevant packages. It also adds any missing entries
+		to go.sum and removes any unnecessary ones.
+
+		The -v flag causes tidy to print information about removed modules
+		to standard error.
+
+		The -e flag causes tidy to attempt to proceed despite errors
+		encountered while loading packages.
+
+		The -go flag causes tidy to update the 'go' directive in the go.mod
+		file to the given version, which may change which module dependencies
+		are retained as explicit requirements in the go.mod file.
+		(Go versions 1.17 and higher retain more requirements in order to
+		support lazy module loading.)
+
+		The -compat flag preserves any additional checksums needed for the
+		'go' command from the indicated major Go release to successfully load
+		the module graph, and causes tidy to error out if that version of the
+		'go' command would load any imported package from a different module
+		version. By default, tidy acts as if the -compat flag were set to the
+		version prior to the one indicated by the 'go' directive in the go.mod
+		file.
+
+		The -x flag causes tidy to print the commands download executes.
+
+		See https://golang.org/ref/mod#go-mod-tidy for more about 'go mod tidy'.
+-----------------------------------------------------
+Package Visibility
+	visible, not visible, exported, not exported 
+	go doesnt use public/private 
+		
+	IF FIRST LETTER OF VAR IS CAPITALIZED
+		it is visible outside of package 
+		
+	
+-----------------------------------------------------
+go get 
+	gets a dependency ie npm install 
+		RHorner@PRT-RHORNER1 MINGW64 /c/learning/go/go_udemy_course/go_get_a_mod (main)
+		$ go get github.com/GoesToEleven/puppy@latest
+		go: added github.com/GoesToEleven/dog v0.0.0-20230428023317-90bef1c76cb9
+		go: added github.com/GoesToEleven/puppy v1.3.0
+-----------------------------------------------------
+tags 
+	If you want to include additional information in your tag, you can use the -a option to
+	create an annotated tag. An annotated tag includes a message that describes the tag
+	and can include information like who created the tag and when it was created. To create
+	an annotated tag, use the syntax git tag -a <tagname> -m <message>.
+	
+	2 types 
+		lightweight
+			■ tags a certain commit
+			■ example:
+			git tag v1.4
+		annotated
+			■ checksummed; contain the tagger name, email, and date; have a tagging
+			message; and can be signed and verified with GNU Privacy Guard
+			(GPG).
+			● example:
+			git tag -a v1.4 -m "my version 1.4"
+			○ -m specifies a tagging message, which is stored with the tag. If
+			you don’t specify a message for an annotated tag, Git launches
+			your editor so you can type it in
+			
+	git push DOESNT push tags 
+	have to explicitly push tags
+	
+	two ways to do this
+		■ git push origin <tagname>.
+		● example
+			● git push origin v1.5
+		■ git push origin --tags
+		● pushes all tags
+		● example
+			● git push origin --tags
+-----------------------------------------------------
+hands on 
+	say you have a separate package 
+		go_udemy_course\hands_on_exercises\handson\hands-on-14.go:
+			package handson
+
+			const foo = 42
+
+			var bar = "This is a string"
+
+			const Foo = 43
+
+			var Bar = "This is another string"
+
+	and want to use package 'handson' in main 
+		go_udemy_course\hands_on_exercises\main.go
+		
+			package main
+
+			import (
+				"fmt"
+				"hands-on-exercises/handson"
+			)
+
+			func main() {
+				fmt.Println(handson.foo)
+				fmt.Println(handson.bar)
+				fmt.Println(handson.Foo)
+				fmt.Println(handson.Bar)
+			}
+	
+	go_udemy_course\hands_on_exercises\go.mod
+		module hands-on-exercises
+
+		go 1.22.1
+
+	how to build the import path
+	correct: modulename/FOLDER NAME 
+	incorrect: modulename/PACKAGE NAME
+	
+building to diff archs 
+	go env GOOS GOARCH
+		windows
+		amd64
+	lists the go env vars GOOS & GOARCH 
+	
+	how to set for linux? 
+		in bash 
+			GOOS=linux go build
+			
+	GOOS=darwin go build	
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Control Flow 
+	init() 
+		https://go.dev/doc/effective_go#init
+		called after all variable are initd 
+		runs before main()
+	
+	The Stack & The Heap
+		In Go, the stack and heap are two regions of memory used for storing variables and data
+		during program execution.
+		
+		The stack is a region of memory used for storing variables that are local to a function or a
+		goroutine. When a function is called or a goroutine is created, a new stack frame is created on
+		the stack to store the function arguments, local variables, and other data. The stack is a LIFO
+		(last-in-first-out) data structure, which means that the most recently added data is the first to
+		be removed. The stack is generally faster than the heap because it is managed automatically
+		by the Go runtime system, and memory allocation and deallocation is relatively fast.
+		
+		The heap is a region of memory used for storing variables that have a longer lifetime than
+		those stored on the stack. When a variable is allocated on the heap, it remains there until it is
+		explicitly deallocated by the program or until the program exits. The heap is a more flexible
+		data structure than the stack, but it is generally slower because it requires more overhead for
+		memory allocation and deallocation. In Go, the heap is managed automatically by the
+		garbage collector, which frees up memory that is no longer being used by the program.
+		In general, Go programs try to allocate as much memory as possible on the stack because it
+		is faster and requires less overhead. However, when a program needs to store large amounts
+		of data or data with a longer lifetime than the stack, it must use the heap. The Go runtime
+		system provides automatic memory management for both the stack and the heap, making it
+		easy to write efficient and scalable concurrent programs.
+		
+what are Goroutines?		
+	Goroutine management: Goroutines are lightweight threads that enable concurrent
+		execution of Go programs. The runtime system manages the creation and destruction
+		of goroutines, and schedules them for execution on available processors.
+-----------------------------------------------------
+if stmnt 
+	ex:
+		if x < 42 {
+			...
+		}else if x < 32{
+			...
+		}else{
+			...
+		}
+	
+	"statement; statement" idiom 
+		The expression may be preceded by a simple statement, which executes before the expression is evaluated.
+			like the "comma ok idiom"
+			
+			if x := f(); x < y {
+				return x
+			} else if x > z {
+				return z
+			} else {
+				return y
+			}
+-----------------------------------------------------
+switch 
+	ex: 
+		can have expr in case:
+		
+		switch {
+			case x < 42:
+				fmt.Println("x is LESS THAN 42")
+			case x == 42:
+				fmt.Println("x is EQUAL TO 42")
+			case x > 42:
+				fmt.Println("x is GREATER THAN 42")
+			default:
+				fmt.Println("this is the default case for x")
+			}
+			
+		can have val in case, specify var in switch -> switch x {
+		
+		switch x {
+			case 40:
+				fmt.Println("x is 40")
+				fallthrough
+			case 41:
+				fmt.Println("printed because of fallthrough: x is 41")
+			case 42:
+				fmt.Println("printed because of fallthrough: x is 42")
+			case 43:
+				fmt.Println("printed because of fallthrough: x is 43")
+			default:
+				fmt.Println("printed because of fallthrough: this is the default case for x")
+			}
+
+	fallthrough ex: 
+		// no default fallthrough
+	switch x {
+	case 40:
+		fmt.Println("x is 40")
+		fallthrough
+	case 41:
+		fmt.Println("printed because of ALL OF THE fallthrough statements: x is 41")
+		fallthrough
+-----------------------------------------------------
+Select stmnt for concurrency communication	
+	switch vs select 
+		// A "select" statement chooses which of a set of possible send or receive operations will proceed.
+		// It looks similar to a "switch" statement but with the cases all referring to communication operations.
+		// https://go.dev/ref/spec#Select_statements
+		select {
+		case v1 := <-ch1:
+			fmt.Println("value from channel 1", v1)
+		case v2 := <-ch2:
+			fmt.Println("value from channel 2", v2)
+		}
+-----------------------------------------------------
+for stmnt 
+	https://go.dev/doc/effective_go#for
+	// Like a C for
+	for init; condition; post { }
+		for i := 0; i < 5; i++ {
+			fmt.Printf("counting to five: %v \t first  for loop\n", i)
+		}
+		
+	// Like a C while
+	for condition { }
+		for y < 10 {
+			fmt.Printf("y is %v \t\t\t second for loop\n", y)
+			y++
+		
+		}
+	// Like a C for(;;)
+	for { }
+		// break
+		// takes you out of the loop
+		for {
+			fmt.Printf("y is %v \t\t third  for loop\n", y)
+			if y > 20 {
+				break
+			}
+			y++
+		}
+-----------------------------------------------------
+Understanding & using 'for range' loops 
+	like a foreach loop 
+		//slice 
+			//xi is a slice (of type int)
+			xi := []int{42, 43, 44, 45, 46, 47}
+			for i, v := range xi {
+				fmt.Println("ranging over a slice", i, v)
+			}
+			
+		/i = index, v = value 
+		
+		//map 
+			// for range loop
+			// data structures - map
+			m := map[string]int{
+				"James":      42,
+				"Moneypenny": 32,
+			}
+			for k, v := range m {
+				fmt.Println("ranging over a map", k, v)
+			}
+			
+		if you only need the index, drop the 2nd 
+			for key := range m {
+				if key.expired() {
+					delete(m, key)
+				}
+			}
+			
+		if you only need the value use a discard 
+			sum := 0
+			for _, value := range array {
+				sum += value
+			}
+-----------------------------------------------------
+HANDS ON 
+	shasum 
+	$ shasum -a 256 ./control-flow/main.go 
+	e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 *./control-flow/main.go
+	
+niladic - func that does not have any args 
+
+use result of 'comma, ok' for if condition
+	if age, ok := m["James"]; ok {
+		fmt.Println("James' age is", age)
+	}
+	
+	for i := 0; i < 100; i++ {
+		if x := rand.Intn(5); x == 3 {
+			fmt.Println("found 3")
+		}
+	}
+-----------------------------------------------------
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-----------------------------------------------------
 ---------------------------------------------------------------------------------
 Grouping Data Values - Array And Slice
 +++++++++++++++++++++
@@ -54,6 +1014,26 @@ slice
             //inclusive
             fmt.Println("si[5:]", si[5:])
 +++++++++++++++++++++
+    deleting from a slice 
+        use append/slice combo 
+            si = append(si[:2], si[3:]...)
+        spread -> si[3:]...
+
++++++++++++++++++++++
+    make 
+        can make a slice using a slice literal 
+        can also use an existing array 
+
+        	si2 := make([]int, 0, 10)
+            fmt.Println(si2)
+            fmt.Println(len(si2)) //10
+            fmt.Println(cap(si2)) //0
+
+            si2 = append(si2, 1, 2, 3, 4)
+
+            fmt.Println(si2)
+            fmt.Println(len(si2)) 
+            fmt.Println(cap(si2))
 +++++++++++++++++++++
 +++++++++++++++++++++
 ---------------------------------------------------------------------------------
