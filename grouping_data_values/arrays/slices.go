@@ -39,6 +39,14 @@ func SlicingASlice() {
 
 }
 
+func MultiDimensionalSlice() {
+	sa := []string{"a", "b", "c", "d"}
+	sb := []string{"e", "f", "g", "h"}
+
+	sc := [][]string{sa, sb}
+	fmt.Println(sc)
+}
+
 func printSlice(s []string) {
 	for i := 0; i < len(s); i++ {
 		fmt.Println("position: ", i, "value: ", s[i])
