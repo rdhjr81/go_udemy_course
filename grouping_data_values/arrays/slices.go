@@ -39,6 +39,31 @@ func SlicingASlice() {
 
 }
 
+func DeletingASlice() {
+	si := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	fmt.Println(si)
+	si = append(si[:1], si[3:]...)
+	fmt.Println(si)
+}
+
+func MakeASlice() {
+	// ai := [3]int{1, 2, 3}
+	si2 := make([]int, 0, 10)
+	fmt.Println(si2)
+	fmt.Println(len(si2))
+	fmt.Println(cap(si2))
+
+	si2 = append(si2, 1, 2, 3, 4)
+
+	fmt.Println(si2)
+	fmt.Println(len(si2))
+	fmt.Println(cap(si2))
+
+	fmt.Println(si2)
+	fmt.Println(len(si2))
+	fmt.Println(cap(si2))
+}
+
 func MultiDimensionalSlice() {
 	sa := []string{"a", "b", "c", "d"}
 	sb := []string{"e", "f", "g", "h"}
