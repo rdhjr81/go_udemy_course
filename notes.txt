@@ -1034,13 +1034,52 @@ slice
             fmt.Println(si2)
             fmt.Println(len(si2)) 
             fmt.Println(cap(si2))
-+++++++++++++++++++++
+
+	can use 2 or 3 args 
+		var statesEmpty = make([]string, 0, 2) -> [] //no elems in slice 
+		vs
+		var states = make([]string, 2) -> [0,0] //2 elems in slice w/ default value 
 +++++++++++++++++++++
     multi-dimensional slice
         sa := []string{"a", "b", "c", "d"}
         sb := []string{"e", "f", "g", "h"}
 
         sc := [][]string{sa, sb}
+---------------------------------------------------------------------------------
+map
++++++++++++++++++++++
+	initing 
+		am := map[string]int{
+			"Todd":   42,
+			"Henry":  16,
+			"Padget": 14,
+		}
+
+		am: = make(map[string]int)
++++++++++++++++++++++
+	adding new k/v 
+		am["batman"] = 63
+
+	for range loop 
+		for k,v := range am {
+			...
+		}
++++++++++++++++++++++
+	deleting a key 
+		delete(am, "batman")
++++++++++++++++++++++
+	is the value in the map? -> comma, ok 
+	v, ok := an["batman"]
+	if ok{
+		...
+	}
+
+	idiomatic way -> immed check for errors 
+	if v, ok := am["batman"]; !ok{
+		
+	}else{
+
+	}
 +++++++++++++++++++++
 ---------------------------------------------------------------------------------
 struct 
