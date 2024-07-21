@@ -1043,3 +1043,45 @@ slice
         sc := [][]string{sa, sb}
 +++++++++++++++++++++
 ---------------------------------------------------------------------------------
+struct 
++++++++++++++++++++++
+    type person struct {
+        first string 
+        last string
+        age int 
+    }
+
+    p1 := person{
+        first:"James",
+        last:"Bond",
+        age:42s
+    }
++++++++++++++++++++++
+embedded structs     
+    type secretAgent {
+        licenseToKill: bool,
+        person
+    }
+
+    if top level property name is same as embedded property name 
+    top level is expressed 
+    "inner type promotion"
++++++++++++++++++++++
+anonymous struct
+    instead of 
+        p1 := person{
+            first:"James",
+            last:"Bond",
+            age:42s
+        }
+
+    can do 
+    p1 := {
+            first:"James",
+            last:"Bond",
+            age:42s
+        }
++++++++++++++++++++++
+Composition
++++++++++++++++++++++
+---------------------------------------------------------------------------------
