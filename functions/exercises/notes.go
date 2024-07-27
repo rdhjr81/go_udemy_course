@@ -1,6 +1,8 @@
 package exercises
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func VariadicParams(ii ...int) {
 	fmt.Println(ii)
@@ -24,7 +26,7 @@ func Deferring(deferFunc bool) {
 }
 
 type Person struct {
-	first string
+	First string
 }
 
 type SecretAgent struct {
@@ -33,16 +35,16 @@ type SecretAgent struct {
 }
 
 func (p Person) speak() {
-	fmt.Println("Hi, I'm ", p.first)
+	fmt.Println("Hi, I'm ", p.First)
 }
 
 func (p SecretAgent) speak() {
-	fmt.Println("Hi, I'm secret agent ", p.first)
+	fmt.Println("Hi, I'm secret agent ", p.First)
 }
 
 func UseMethod() {
 	p := Person{
-		first: "Ron",
+		First: "Ron",
 	}
 
 	p.speak()
@@ -50,7 +52,7 @@ func UseMethod() {
 
 func WithoutInterface() {
 	p := Person{
-		first: "Ron",
+		First: "Ron",
 	}
 
 	sa := SecretAgent{
@@ -71,7 +73,7 @@ func talk(h human) {
 }
 func UseInterface() {
 	p := Person{
-		first: "Ron",
+		First: "Ron",
 	}
 
 	sa := SecretAgent{

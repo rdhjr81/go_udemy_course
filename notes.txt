@@ -1201,5 +1201,75 @@ Functions
             h.speak()
         }
 
+	stringer interface
+		type Stringer interface {
+			String() string
+		}
+
+		type Book struct {
+			Title string
+		}
+
+		func (b Book) String() string {
+			return fmt.Sprint("the titel of the book is ", b.Title)
+		}
++++++++++++++++++++++
+	writer interface 
+		func (w Writer) Write(p []byte) (n int, err error)
+
+	[]byte to string 
+		b2 := []byte{82, 111, 110, 42, 69, 111, 111}
+		b2String := string(b2)
+	byte buffer
+		var b bytes.Buffer
+
+		p.WriteOut(f)
+		p.WriteOut(&b)
++++++++++++++++++++++
+	anon functions
+		func(){}()
+
+			//no arg
+	func() {
+		fmt.Println("we are anoymous")
+	}()
+
+	//arg
+	func(s string) {
+		fmt.Println("hello ", s)
+	}("Arthur Pendragon")
++++++++++++++++++++++
+	func expression 
+		assigning a func to a var 
+			y := func(s string) {
+				fmt.Println("hello ", s)
+			}
+
+			y("george")
+			y("alan")
++++++++++++++++++++++
+	returning a func 
+		func foo2() int {
+			return 42
+		}
+
+		func bar() func() int{
+			return foo2
+		}
+
+		signature for a func that has no args and returns an int 
+		func() int
+
+
++++++++++++++++++++++
+	callback
+		pass a func as an arg to another func 
+			func functionCallback(fInt func() int) {
+				fmt.Println("fInt: ", fInt())
+			}
+
+			func UseFunctionAsCallback() {
+				functionCallback(bar())
+			}
 +++++++++++++++++++++
 ---------------------------------------------------------------------------------
