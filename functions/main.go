@@ -5,33 +5,48 @@ import (
 )
 
 func main() {
-	// exercises.VariadicParams(1, 2, 3, 4, 5)
-	// exercises.Deferring(true)
-	// exercises.Deferring(false)
-	// exercises.UseMethod()
-	// exercises.UseInterface()
+	runExercises()
+}
 
-	// mobyDick := exercises.Book{
+func runExercises() {
+	// fmt.Println(exercises.Foo())
+	// num, str := exercises.Bar()
+	// fmt.Println("bar: ", num, str)
+	// exercises.Exercise59()
+	// exercises.Exercise60()
+	// exercises.Exercise61()
+	exercises.Exercise62()
+
+}
+
+func runLearning() {
+	// learning.VariadicParams(1, 2, 3, 4, 5)
+	// learning.Deferring(true)
+	// learning.Deferring(false)
+	// learning.UseMethod()
+	// learning.UseInterface()
+
+	// mobyDick := learning.Book{
 	// 	Title: "Moby Dick",
 	// }
 
 	// fmt.Println("book title", mobyDick)
 
-	// var magicNumber exercises.Count = 42
+	// var magicNumber learning.Count = 42
 
 	// fmt.Println("count", magicNumber)
 
-	// exercises.LogInfo(mobyDick)
+	// learning.LogInfo(mobyDick)
 
-	// rodney := exercises.Person{
+	// rodney := learning.Person{
 	// 	First: "Rodney",
 	// }
 
 	// rodney.WriteOut()
-	// exercises.UseBuffer()
-	// exercises.WriteToFile()
-	// exercises.AnonymousFunctions()
-	// exercises.FunctionExpression()
-	// exercises.ReturnAFunction()
-	exercises.UseFunctionAsCallback()
+	// learning.UseBuffer()
+	// learning.WriteToFile()
+	// learning.AnonymousFunctions()
+	// learning.FunctionExpression()
+	// learning.ReturnAFunction()
+	// learning.UseFunctionAsCallback()
 }
