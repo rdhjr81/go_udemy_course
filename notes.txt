@@ -1437,10 +1437,26 @@ Generics
 			}
 
 +++++++++++++++++++++	
-	package contstraints 
+	package constraints 
 +++++++++++++++++++++	
 ---------------------------------------------------------------------------------
+JSON documentation
+	+++++++++++++++++++++
+	JSON marshall 
+		take data from struct & turn into JSON 
 
+		ex: 
+			people := []person{p1, p2}
+			fmt.Println(people)
 
+			bs, err := json.Marshal(people)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+	+++++++++++++++++++++
+	JSON unmarshall 
+
+		
 +++++++++++++++++++++	
 ---------------------------------------------------------------------------------
