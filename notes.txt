@@ -1273,6 +1273,174 @@ Functions
 			}
 +++++++++++++++++++++
 	closure
-		
+
 +++++++++++++++++++++
+	testing 
+		test files
+			Test files: Test files live in the same package as the code they test. They are named with
+			the following convention: `filename_test.go` where filename is the name of the file that
+			contains the code you want to test.
+
+			2. Test functions: 
+			Test functions must start with the word `Test` followed by a word that starts
+			with a capital letter. The signature of a test function is `func TestXxx(*testing.T)`, 
+			where Xxx does not start with a lowercase letter
+
+	to run tests 
+		go test
+		ex:
+		func TestAdd(t *testing.T) {
+			total := Add(5, 5)
+			if total != 10 {
+			t.Errorf("Sum was incorrect, got: %d, want: %d.", total, 10)
+			}
+		}
+
++++++++++++++++++++++
+	comments
+		convention for documenting ->
+			comments immediately preceding the declaration or definition 
+		used by godoc to auto generate API documentaion
+
+		large amt of doc? use a doc.go file 
+
+		Package doc 
+			This should be a brief one-liner that begins with "Package
+			`<packagename>`" and provides a high-level overview of the package's purpose. It is typically
+			located in a separate `doc.go` file
+
+	go doc
+		shows exported members only
+		can show private w/ 
+		go doc -u	
+		
+		
+		lists all funcs in a file 
+		package exercises // import "functions/exercises"
+
+		go doc -cmd -all
+			FUNCTIONS
+
+			func Bar() (int, string)
+				the bar func
+
+			func Exercise59()
+			func Exercise60()
+			func Exercise61()
+			func Exercise62()
+			func Foo() int
+				the foo func
+---------------------------------------------------------------------------------
+Pointers
++++++++++++++++++++++
+		x:= 1
+		x // is 1 
+		
+		&x // address of x 
++++++++++++++++++++++
+	address operator 
+		&
+		x:= 1
+		x // is 1 
+
+		&x // address of x 
++++++++++++++++++++++
+	dereferencing op 
+		*
+		p is a pointer
+		*p gets the value that pointer points to
++++++++++++++++++++++
+	seeing type and value of a pointer 
+		pruntf("%v %T', &x, &x) 
+
+		type is *int 
++++++++++++++++++++++
+	dereferencing pointers		
+
++++++++++++++++++++++	
+	Value semantics 
+		when func rcvs a val, it gets a copy of that val 
+		copy is placed on the stack
+
+	pointer semantics 
+		the pointer has to be alloc on the heap, more expensive 
+
+	escape analysis
+		Go escape analysis decides whether a var should be  allocated on the stack or heap 
+
+		To see escape analysis in Go, you use the '-gcflags' flag followed by '-m' when running t
+			go run -gcflags '-m' main.go
++++++++++++++++++++++	
+	method sets 
+		In Go, a 'method set' is the set of methods attached to a type. 
+		This concept is key to the Go's interface mechanism,
+
+		val method sets: The method set of a type T consists of all methods with receiver type T
+		ref method sets: The method set of a type *T consists of all methods with receiver *T or T
+
+	method set & interfaces 	
+		if you define a method w a ptr rcvr, 
+			the method is only in the method set of the ptr type 
+
+		if an interface requires a method defined using a ptr 
+			have to use a ptr, 
++++++++++++++++++++++	
+	In Go, a value of type `T` can use a method with a receiver of type `*T` 
+	but with some limitations.
+
+	if you try to call method w/ ptr rcvr, Go will auto use the address of that value 
+	that value has to be addressable 
+
+	T{"another name"}.changeName("new name") 
+		// Compiler error, T{"old name"} is not addressab
+---------------------------------------------------------------------------------
+Generics 
++++++++++++++++++++++	
+	type constraint 
+		[T int | float64]
+
+		func add[T int | float64] (a , b T) T {
+			return a + b
+		}
++++++++++++++++++++++
+	type constraint & type set interface
+
+	type set interface
+		type myNumbers interface{
+			int | float64
+		}
+
+	can then use 'myNumbers' as type in above func 
+		func add[T myNumbers] (a , b T) T {
+			return a + b
+		}
++++++++++++++++++++++	
+	type alias & underlying type constraints 
+
+		can alias an int to a diff type name
+			type tAlias int 
+
+	underlying type constraints 
+		have to use ~ character in type set to indicate that any types whose 
+		UNDERLYING types are float64 or int can be used also
+
+			type myNumbers interface{
+				int | float64
+			}
+			a1 tAlias = 4
+
+			add(a1, 3) // wont work
+
+		if interface myNumbers is changed to:
+			type myNumbers interface{
+				~int | ~float64
+			}
+
++++++++++++++++++++++	
+	package contstraints 
++++++++++++++++++++++	
+---------------------------------------------------------------------------------
+
+
++++++++++++++++++++++	
 ---------------------------------------------------------------------------------

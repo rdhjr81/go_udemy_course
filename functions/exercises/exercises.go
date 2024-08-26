@@ -5,10 +5,12 @@ import (
 	"math"
 )
 
+// the foo func
 func Foo() int {
 	return 42
 }
 
+// the bar func
 func Bar() (int, string) {
 	return 43, "fooooobar"
 }
@@ -64,6 +66,7 @@ type square struct {
 	width  float64
 }
 
+// function that calcs area of a square
 func (sq square) area() float64 {
 	return sq.length * sq.width
 }
@@ -96,4 +99,61 @@ func Exercise62() {
 	}
 
 	info(c)
+}
+func doMath(a int, b int, f func(int, int) int) int {
+	return f(a, b)
+}
+func add(a int, b int) int {
+	return a + b
+}
+func subtract(a int, b int) int {
+	return a - b
+}
+
+func Exercise68() {
+
+	c := 4
+	d := 5
+	func() {
+		d = c
+	}()
+	fmt.Println("d = ", d)
+}
+
+func Exercise69() {
+	add := func(a int, b int) int {
+		return a + b
+	}
+	result := add(1, 2)
+	fmt.Println("1 + 2 = ", result)
+}
+
+func get42Func() func() int {
+	return func() int {
+		return 42
+	}
+}
+func Exercise70() {
+	funk42 := get42Func()
+	fmt.Printf("func 42 type: %t", funk42)
+	fmt.Println()
+	fmt.Printf("func 42 value: %d", funk42())
+}
+
+func Exercise71() {
+	func(f func() int) {
+		fmt.Printf("callback type: %t", f)
+		fmt.Println()
+		fmt.Printf("callback value: %d", f())
+	}(get42Func())
+}
+
+func Exercise72() {
+	index := 1
+	func() {
+		for ; index < 5; index++ {
+			fmt.Println("index: ", index)
+		}
+		fmt.Println()
+	}()
 }

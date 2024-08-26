@@ -15,7 +15,10 @@ func runExercises() {
 	// exercises.Exercise59()
 	// exercises.Exercise60()
 	// exercises.Exercise61()
-	exercises.Exercise62()
+	// exercises.Exercise62()
+	// exercises.Exercise70()
+	// exercises.Exercise71()
+	exercises.Exercise72()
 
 }
 
