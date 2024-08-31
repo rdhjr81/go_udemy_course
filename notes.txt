@@ -1456,7 +1456,41 @@ JSON documentation
 
 	+++++++++++++++++++++
 	JSON unmarshall 
+		ex: 
+			peeps := []person{}
+			err := json.Unmarshal(bs, &peeps)
 
+	+++++++++++++++++++++~
+	writer interface 
+		Encoder/Decoder 
+
+		type Writer is an interface 
+			Write(p []byte)(n int, err error)
+	+++++++++++++++++++++	
+	sort 
+		there is a sort lib
+		sort.Ints({slice of int})
+
+	sort structs 
+		sort pkg has a 'Interface' interface  
+
+			type 	ByLast []user
+
+			func (b ByLast) Len() int { return len(b) }
+
+			func (b ByLast) Swap(i, j int) {
+				b[i], b[j] = b[j], b[i]
+			}
+
+			func (b ByLast) Less(i, j int) bool {
+				return b[i].Last < b[j].Last
+			}
+	+++++++++++++++++++++	
+	bcrypt 
+		what is 
+		storing pwds 
+		when you rcv pw from user -> bcrypt it and store it 
 		
+
 +++++++++++++++++++++	
 ---------------------------------------------------------------------------------
