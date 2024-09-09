@@ -1492,5 +1492,83 @@ JSON documentation
 		when you rcv pw from user -> bcrypt it and store it 
 		
 
+---------------------------------------------------------------------------------
+Concurrency 
+	+++++++++++++++++++++	
+	concurrency vs parallelism 
+		only go was built after mult cores became variable 
+		concurrency is design pattern
+		does not guarantee it WILL run in parallel 
+
+	how to run a func in multi thread?
+		run func using 'go' 
+			func foo() {...}
+		
+			go foo() 
+	+++++++++++++++++++++	
+	WaitGroup 
+		A WaitGroup waits for a collection of goroutines to finish
+		var wg sync.WaitGroup
+
+		sync.WaitGroup
+			○ func (wg *WaitGroup) Add(delta int)
+			○ func (wg *WaitGroup) Done()
+			○ func (wg *WaitGroup) Wait(
+		ex: 
+			wg.Add(1)		
+
+			go foo() 
+
+		inside foo:
+			...
+			wg.Done()
+
+	+++++++++++++++++++++	
+	Method Sets Revisited 
+		type may have method sets 
+		the method set of a type determines the interfaces that the type impls and the methods that can be called using a rcvr of that type 
+		Non Pointer Receivers
+			works w values that are pointers or non pointers 
+		Poitner Receivers
+			only works w values that are pointers
+
+
+			Receivers Values
+			-----------------------------------------------
+			(t T) T and *T
+			(t *T) *T
+
+		how can we call 'wg.Done()' when wg is a WaitGroup -> not a *WaitGroup?
+			func (wg *WaitGroup) Add(delta int)
+			
+			if x is addressable and &x's method set contains m, x.m() is shorthand for (&x).m().
+			https://stackoverflow.com/questions/42477951/what-is-the-method-set-of-sync-waitgroup
+
+		if a func run in a  goroutine has a return value (or err)
+			it is discarded when the func completes 
+	+++++++++++++++++++++	
+	Race condition
+		runtime.Gosched() -> yields to other goroutines 
+
+		go run -race 
+			detects 'data races' 
+	+++++++++++++++++++++	
+	Mutex 
+		var mu sync.Mutex 
+
+		mu.Lock()
+			//single thread only 
+		mu.Unlock()
+
+	RWMutex 
+		Lock() //write lock 
+		RLock() //read lock 
+
+	+++++++++++++++++++++	
+	Atomic 
+		low level atomic primitives 
+		uses Int64 
+			write: atomic.AddInt64(&counter, 1)
+			read: atomic.LoadInt64(&counter)
 +++++++++++++++++++++	
 ---------------------------------------------------------------------------------
